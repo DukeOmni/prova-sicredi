@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 
 import lombok.*;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -13,11 +12,7 @@ import java.util.Set;
 @AllArgsConstructor
 @ToString
 @Entity(name="pauta")
-public class Pauta {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "pauta_id")
-    private Long id;
+public class Pauta extends Entidade{
 
     @Column(name = "descricao")
     private String descricao;

@@ -8,12 +8,8 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@Entity(name="pessoa")
-public class Associado {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+@Entity(name="associado")
+public class Associado extends Entidade{
 
     @Column(name = "nome")
     private String nome;

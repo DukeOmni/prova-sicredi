@@ -26,6 +26,10 @@ public class VotacaoController {
     }
     @PutMapping("{id}")
     private Votacao atualizarVotacao(@PathVariable final Long id, @RequestBody final Votacao votacao){
-        return votacaoService.atualizaVotacao(id,votacao);
+        try {
+            return votacaoService.atualizaVotacao(id,votacao);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }

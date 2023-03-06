@@ -31,7 +31,7 @@ uma API REST
 * Utilize o wrapper do maven através do comando ./mvnw.
 * Além de utilizar o wrapper para criar o Jar. Também é possível cria-lo através da IDE
 * Após gerar o .jar utilize o comando java -jar para subir a aplicação
-* Utilize a ferramenta Postman para os testes de API, há um .json que pode ser facilmente importado para facilitar os testes
+* Utilize a ferramenta Postman para os testes de API, há um .json NA PASTA RESOURCES que pode ser facilmente importado para facilitar os testes
 
 
 ### Reference Documentation

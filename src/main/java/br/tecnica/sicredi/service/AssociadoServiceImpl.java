@@ -1,6 +1,7 @@
 package br.tecnica.sicredi.service;
 
-import br.tecnica.sicredi.dto.ApiExternaDTO;
+import br.tecnica.sicredi.excecao.AssociadoNotFoundException;
+import br.tecnica.sicredi.excecao.VotacaoNotFoundException;
 import br.tecnica.sicredi.model.Associado;
 import br.tecnica.sicredi.model.AssociadoStatus;
 import br.tecnica.sicredi.repository.AssociadoRepository;
@@ -35,8 +36,8 @@ public class AssociadoServiceImpl implements AssociadoService{
     }
 
     @Override
-    public Associado listaAssociadoPorId(final Long id) {
-        return this.associadoRepository.findById(id).orElse(null);
+    public Associado listaAssociadoPorId(final Long id) throws AssociadoNotFoundException {
+        return this.associadoRepository.findById(id).orElseThrow(this::associadoNotFoundException);
     }
 
     //Bonus de verificar cpf Associado
@@ -58,5 +59,12 @@ public class AssociadoServiceImpl implements AssociadoService{
 
         return new ResponseEntity<>(AssociadoStatus.geraStatusAleatorio(), response.contains("Verdadeiro")? HttpStatus.OK:HttpStatus.NOT_FOUND);
 
+    }
+    protected String mensagemNotFound(){
+        return "Associado não encontrado";
+    };
+
+    protected AssociadoNotFoundException associadoNotFoundException() {
+        return new AssociadoNotFoundException(mensagemNotFound());
     }
 }

@@ -1,5 +1,6 @@
 package br.tecnica.sicredi.controller;
 
+import br.tecnica.sicredi.dto.VotoDTO;
 import br.tecnica.sicredi.model.Associado;
 import br.tecnica.sicredi.model.Votacao;
 import br.tecnica.sicredi.service.VotacaoService;
@@ -25,7 +26,7 @@ public class VotacaoController {
         return votacaoService.criarVotacao(votacao);
     }
     @PutMapping("{id}")
-    private Votacao atualizarVotacao(@PathVariable final Long id, @RequestBody final Votacao votacao){
+    private Votacao atualizarVotacao(@PathVariable final Long id, @RequestBody final VotoDTO votacao){
         try {
             return votacaoService.atualizaVotacao(id,votacao);
         } catch (Exception e) {

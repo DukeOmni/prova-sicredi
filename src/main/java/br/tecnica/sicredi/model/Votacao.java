@@ -20,7 +20,7 @@ public class Votacao extends Entidade{
 
     @OneToMany
     @Column(name = "contra")
-    private List<Associado> contras;
+    private List<Associado> contra;
 
     @OneToMany
     @Column(name = "favor")

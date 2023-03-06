@@ -1,5 +1,6 @@
 package br.tecnica.sicredi.controller.erro;
 
+import br.tecnica.sicredi.excecao.AssociadoNotFoundException;
 import br.tecnica.sicredi.excecao.VotacaoEncerradaException;
 import br.tecnica.sicredi.excecao.VotacaoNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -22,8 +23,8 @@ public class ErroControler {
     }
 
     @ExceptionHandler(value = Throwable.class)
-    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
-    public ErrorMessageModel internalServerErrorException(Throwable t) {
+    @ResponseStatus(value = HttpStatus.NOT_FOUND)
+    public ErrorMessageModel associadoNotFoundException(AssociadoNotFoundException t) {
         return new ErrorMessageModel(t.getMessage());
     }
 }

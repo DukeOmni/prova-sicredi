@@ -1,7 +1,10 @@
 package br.tecnica.sicredi.service;
 
+import br.tecnica.sicredi.dto.VotoDTO;
+import br.tecnica.sicredi.excecao.AssociadoNotFoundException;
 import br.tecnica.sicredi.excecao.VotacaoEncerradaException;
 import br.tecnica.sicredi.excecao.VotacaoNotFoundException;
+import br.tecnica.sicredi.model.Associado;
 import br.tecnica.sicredi.model.Votacao;
 import br.tecnica.sicredi.repository.VotacaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +18,8 @@ import java.util.Objects;
 public class VotacaoServiceImpl implements VotacaoService{
     @Autowired
     private VotacaoRepository votacaoRepository;
+    @Autowired
+    private AssociadoService associadoService;
 
     static final long DEFAULT_EM_MILIS = 60000;
 
@@ -34,12 +39,19 @@ public class VotacaoServiceImpl implements VotacaoService{
     }
 
     @Override
-    public Votacao atualizaVotacao(final Long id, final Votacao remove) throws VotacaoEncerradaException, VotacaoNotFoundException {
-        final Votacao votacao=this.votacaoRepository.findById(id).orElseThrow(this::votacaoNotFoundException);
+    public Votacao atualizaVotacao(final Long idVotacao, final VotoDTO voto) throws VotacaoEncerradaException, VotacaoNotFoundException, AssociadoNotFoundException {
+        final Votacao votacao=this.votacaoRepository.findById(idVotacao).orElseThrow(this::votacaoNotFoundException);
+        final Associado associado=this.associadoService.listaAssociadoPorId(voto.getIdAssociado());
         //verifica se votação ainda está aberta
         final int estadoVotacao=new Date().compareTo(votacao.getDataFim());
         if(estadoVotacao>=0){
             throw new VotacaoEncerradaException("A votação está fechada");
+        }else{
+            if (voto.getOpiniao().toLowerCase().contains("sim")){
+                votacao.getFavor().add(associado);
+            }else{
+                votacao.getContra().add(associado);
+            }
         }
         return this.votacaoRepository.saveAndFlush(votacao);
     }

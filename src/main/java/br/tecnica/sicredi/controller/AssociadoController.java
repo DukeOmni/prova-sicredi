@@ -1,11 +1,14 @@
 package br.tecnica.sicredi.controller;
 
 import br.tecnica.sicredi.model.Associado;
+import br.tecnica.sicredi.model.AssociadoStatus;
 import br.tecnica.sicredi.service.AssociadoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
@@ -20,15 +23,14 @@ public class AssociadoController {
         return associadoService.listaAssociado();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{cpf}")
     @ResponseStatus(HttpStatus.OK)
-    public Associado listarAssociadoPorId(@PathVariable final Long id){
-        return associadoService.listaAssociadoPorId(id);
+    public ResponseEntity<AssociadoStatus> verificaCpfAssociado(@PathVariable final String cpf) throws URISyntaxException {
+        return associadoService.verificaVoto(cpf);
     }
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Associado cadastrarAssociado(@RequestBody final Associado associado){
-        //TODO bonus
         return associadoService.criarAssociado(associado);
     }
     @PutMapping("{id}")

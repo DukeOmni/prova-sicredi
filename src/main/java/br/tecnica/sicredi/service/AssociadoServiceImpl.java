@@ -5,8 +5,10 @@ import br.tecnica.sicredi.model.Associado;
 import br.tecnica.sicredi.model.AssociadoStatus;
 import br.tecnica.sicredi.repository.AssociadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
@@ -41,12 +43,20 @@ public class AssociadoServiceImpl implements AssociadoService{
     @Override
     public ResponseEntity<AssociadoStatus> verificaVoto(final String cpf) throws URISyntaxException {
         RestTemplate restTemplate = new RestTemplate();
-        URI uri = new URI("https://www.4devs.com.br/ferramentas_online.php");
+        String url = "https://www.4devs.com.br/ferramentas_online.php";
 
-        ApiExternaDTO apiExternaDTO = new ApiExternaDTO("validar_cpf", cpf);
-        ResponseEntity<String> apiExternaResult = restTemplate.postForEntity(uri, apiExternaDTO, String.class);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 
-        return new ResponseEntity<>(AssociadoStatus.geraStatusAleatorio(), apiExternaResult.getStatusCode());
+        MultiValueMap<String, String> map= new LinkedMultiValueMap<String, String>();
+        map.add("acao", "validar_cpf");
+        map.add("txt_cpf", cpf);
+
+        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(map, headers);
+
+        String response = restTemplate.postForObject( url, request , String.class );
+
+        return new ResponseEntity<>(AssociadoStatus.geraStatusAleatorio(), response.contains("Verdadeiro")? HttpStatus.OK:HttpStatus.NOT_FOUND);
 
     }
 }

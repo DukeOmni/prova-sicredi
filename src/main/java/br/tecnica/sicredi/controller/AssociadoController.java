@@ -22,7 +22,7 @@ public class AssociadoController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Associado listarAssociadoPorId(@RequestParam final long id){
+    public Associado listarAssociadoPorId(@PathVariable final Long id){
         return associadoService.listaAssociadoPorId(id);
     }
     @PostMapping
@@ -31,9 +31,9 @@ public class AssociadoController {
         //TODO bonus
         return associadoService.criarAssociado(associado);
     }
-    @PutMapping
+    @PutMapping("{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Associado alterarAssociado(@RequestBody final Associado associado){
-        return associadoService.alterarAssociado(associado);
+    public Associado alterarAssociado(@PathVariable Long id,@RequestBody final Associado associado){
+        return associadoService.alterarAssociado(id,associado);
     }
 }

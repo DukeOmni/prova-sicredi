@@ -8,7 +8,7 @@ import java.util.List;
 public interface AssociadoService {
     List<Associado> listaAssociado();
     Associado criarAssociado(final Associado associado);
-    Associado alterarAssociado(final Associado associado);
-    Associado listaAssociadoPorId(final long id);
+    Associado alterarAssociado(final Long id,final Associado associado);
+    Associado listaAssociadoPorId(final Long id);
 
 }

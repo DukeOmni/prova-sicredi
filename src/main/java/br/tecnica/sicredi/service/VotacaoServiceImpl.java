@@ -18,17 +18,17 @@ public class VotacaoServiceImpl implements VotacaoService{
     }
 
     @Override
-    public List<Votacao> listarVotacao() {
+    public List<Votacao> listaVotacao() {
         return this.votacaoRepository.findAll();
     }
 
     @Override
-    public Votacao atualizaVotacao(Votacao votacao) {
+    public Votacao atualizaVotacao(final Long id,final Votacao votacao) {
         return this.votacaoRepository.saveAndFlush(votacao);
     }
 
     @Override
-    public Votacao buscaPorId(long id) {
+    public Votacao buscaPorId(final Long id) {
         return this.votacaoRepository.findById(id).orElse(null);
     }
 }

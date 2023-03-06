@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface VotacaoService {
     Votacao criarVotacao(final Votacao votacao);
-    List<Votacao> listarVotacao();
-    Votacao atualizaVotacao(final Votacao votacao);
-    Votacao buscaPorId(final long id);
+    List<Votacao> listaVotacao();
+    Votacao atualizaVotacao(final Long id, final Votacao votacao);
+    Votacao buscaPorId(final Long id);
 
 }

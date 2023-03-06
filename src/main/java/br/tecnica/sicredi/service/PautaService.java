@@ -10,8 +10,8 @@ import java.util.List;
 @Service
 public interface PautaService {
     Pauta criarPauta(final Pauta pauta);
-    Pauta alterarPauta(final Pauta pauta);
+    Pauta alterarPauta(final Long id,final Pauta pauta);
     List<Pauta> listaPauta();
-    Pauta listaPautaPorId(final long id);
+    Pauta listaPautaPorId(final Long id);
 
 }

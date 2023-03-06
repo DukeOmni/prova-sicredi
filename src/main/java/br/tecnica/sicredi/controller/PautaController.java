@@ -21,7 +21,7 @@ public class PautaController {
     }
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Pauta listarPautasPorId(@RequestParam final long id){
+    public Pauta listarPautasPorId(@PathVariable final long id){
         return pautaService.listaPautaPorId(id);
     }
     @PostMapping
@@ -29,9 +29,9 @@ public class PautaController {
     public Pauta cadastrarPauta(@RequestBody final Pauta pauta){
         return pautaService.criarPauta(pauta);
     }
-    @PutMapping
+    @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Pauta alterarPauta(@RequestBody final Pauta pauta){
-        return pautaService.alterarPauta(pauta);
+    public Pauta alterarPauta(@PathVariable final Long id,@RequestBody final Pauta pauta){
+        return pautaService.alterarPauta(id, pauta);
     }
 }

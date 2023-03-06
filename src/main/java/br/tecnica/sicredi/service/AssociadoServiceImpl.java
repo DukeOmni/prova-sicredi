@@ -23,12 +23,12 @@ public class AssociadoServiceImpl implements AssociadoService{
     }
 
     @Override
-    public Associado alterarAssociado(final Associado associado) {
+    public Associado alterarAssociado(final Long id,final Associado associado) {
         return this.associadoRepository.saveAndFlush(associado);
     }
 
     @Override
-    public Associado listaAssociadoPorId(final long id) {
+    public Associado listaAssociadoPorId(final Long id) {
         return this.associadoRepository.findById(id).orElse(null);
     }
 }

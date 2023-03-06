@@ -18,7 +18,7 @@ public class PautaServiceImpl implements PautaService{
     }
 
     @Override
-    public Pauta alterarPauta(Pauta pauta) {
+    public Pauta alterarPauta(final Long id, final Pauta pauta) {
         return this.pautaRepository.saveAndFlush(pauta);
     }
 
@@ -28,7 +28,7 @@ public class PautaServiceImpl implements PautaService{
     }
 
     @Override
-    public Pauta listaPautaPorId(final long id) {
+    public Pauta listaPautaPorId(final Long id) {
         return this.pautaRepository.findById(id).orElse(null);
     }
 }

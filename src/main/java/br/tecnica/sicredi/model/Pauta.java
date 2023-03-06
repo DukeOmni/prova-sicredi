@@ -17,15 +17,5 @@ public class Pauta extends Entidade{
     @Column(name = "descricao")
     private String descricao;
 
-    @Column(name = "dataInicio")
-    private Date dataInicio;
 
-    @Column(name = "dataFim")
-    private Date dataFim;
-
-    @OneToMany(mappedBy="id")
-    private Set<Associado> aFavor;
-
-    @OneToMany(mappedBy="id")
-    private Set<Associado> contra;
 }
